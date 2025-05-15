@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Quiz di Allineamento dell'Anima</title>
+  <style>
+    body { font-family: Arial, sans-serif; padding: 2rem; background: #f4f0f8; color: #333; }
+    fieldset { margin-bottom: 1.5rem; background: #fff; padding: 1rem; border-radius: 0.5rem; border: 1px solid #ccc; }
+    button { padding: 0.7rem 1.5rem; background: #6a4dad; color: white; border: none; border-radius: 0.4rem; cursor: pointer; }
+    .result-box { margin-top: 2rem; background: #fff9f5; padding: 1rem; border-left: 4px solid #f0846c; border-radius: 0.5rem; display: none; }
+    .result-box img { width: 60px; vertical-align: middle; margin-right: 10px; }
+  </style>
+  <script>
+    function submitQuiz(event) {
+      event.preventDefault();
+      const formData = new FormData(document.getElementById("alignmentQuiz"));
+
+      const responses = {
+        emotional: formData.get("emotional"),
+        action: formData.get("action"),
+        intuition: formData.get("intuition"),
+        pleasing: formData.get("pleasing"),
+        joy: formData.get("joy")
+      };
+
+      let score = 0;
+      const scoring = {
+        emotional: { regularly: 0, often: 1, rarely: 2, never: 3 },
+        action: { blocked: 0, frustrated: 1, sometimes: 2, clear: 3 },
+        intuition: { disconnected: 0, unclear: 1, doubt: 2, connected: 3 },
+        pleasing: { always: 0, often: 1, sometimes: 2, rarely: 3 },
+        joy: { cant_remember: 0, months: 1, weeks: 2, now: 3 }
+      };
+
+      for (let key in responses) {
+        score += scoring[key][responses[key]];
+      }
+
+      const resultBox = document.getElementById("quizResult");
+      let resultText = "";
+
+      if (score <= 5) {
+        resultText = "<img src='https://cdn-icons-png.flaticon.com/512/4140/4140048.png' alt='Icona del Viandante della Nebbia'><strong>Il Viandante della Nebbia:</strong> Stai attraversando un periodo di profonda disconnessione dell’anima. È un invito sacro a fermarti, purificare la tua energia e tornare a ciò che ti accende davvero.";
+      } else if (score <= 8) {
+        resultText = "<img src='https://cdn-icons-png.flaticon.com/512/4351/4351901.png' alt='Icona del Donatore'><strong>Il Donatore:</strong> Dai così tanto agli altri che la tua fiamma si è indebolita. È il momento di ricostruire i confini e nutrire te stessə con amore.";
+      } else if (score <= 11) {
+        resultText = "<img src='https://cdn-icons-png.flaticon.com/512/1680/1680389.png' alt='Icona del Cercatore di Scintille'><strong>Il Cercatore di Scintille:</strong> Ti stai risvegliando, desiderando più gioia e chiarezza. Sei quasi allineatə—basta poco per riaccendere la tua anima.";
+      } else {
+        resultText = "<img src='https://cdn-icons-png.flaticon.com/512/1041/1041916.png' alt='Icona dell’Allineato'><strong>L’Allineatə:</strong> Stai brillando nella tua verità. Continua a nutrire questo stato con rituali, gratitudine e amore. Celebra il tuo cammino!";
+      }
+
+      resultBox.innerHTML = resultText;
+      resultBox.style.display = "block";
+    }
+  </script>
+</head>
+<body>
+  <h1>Sei allineatə con la tua Anima?</h1>
+  <p><em>Un quiz per scansionare il tuo stato interiore e scoprire dove la tua luce ha bisogno di essere nutrita, ripulita o celebrata.</em></p>
+
+  <form id="alignmentQuiz" onsubmit="submitQuiz(event)">
+    <fieldset>
+      <legend>1. Ti senti spesso emotivamente insensibile o reattivə?</legend>
+      <label><input type="radio" name="emotional" value="regularly" required> Sì, spesso</label><br>
+      <label><input type="radio" name="emotional" value="often"> A volte</label><br>
+      <label><input type="radio" name="emotional" value="rarely"> Raramente</label><br>
+      <label><input type="radio" name="emotional" value="never"> Mai</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>2. Fai fatica a passare all'azione, anche quando sai cosa vuoi?</legend>
+      <label><input type="radio" name="action" value="blocked" required> Mi sento sempre bloccatə</label><br>
+      <label><input type="radio" name="action" value="frustrated"> Rimando spesso e mi frustra</label><br>
+      <label><input type="radio" name="action" value="sometimes"> A volte, ma alla fine agisco</label><br>
+      <label><input type="radio" name="action" value="clear"> Agisco con chiarezza</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>3. Hai difficoltà a connetterti con la tua intuizione?</legend>
+      <label><input type="radio" name="intuition" value="disconnected" required> Sì, completamente disconnessə</label><br>
+      <label><input type="radio" name="intuition" value="unclear"> A volte è tutto confuso</label><br>
+      <label><input type="radio" name="intuition" value="doubt"> A volte dubito</label><br>
+      <label><input type="radio" name="intuition" value="connected"> Mi sento guidatə</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>4. Sacrifichi spesso i tuoi bisogni per compiacere gli altri?</legend>
+      <label><input type="radio" name="pleasing" value="always" required> Quasi sempre</label><br>
+      <label><input type="radio" name="pleasing" value="often"> Spesso</label><br>
+      <label><input type="radio" name="pleasing" value="sometimes"> A volte</label><br>
+      <label><input type="radio" name="pleasing" value="rarely"> Raramente o mai</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>5. Quando è stata l’ultima volta che ti sei sentitə ispiratə o pienə di gioia?</legend>
+      <label><input type="radio" name="joy" value="cant_remember" required> Non lo ricordo</label><br>
+      <label><input type="radio" name="joy" value="months"> Mesi fa</label><br>
+      <label><input type="radio" name="joy" value="weeks"> Qualche settimana fa</label><br>
+      <label><input type="radio" name="joy" value="now"> Recentemente o ora</label>
+    </fieldset>
+
+    <fieldset>
+      <legend>Vuoi ricevere i tuoi risultati e una guida gratuita di allineamento?</legend>
+      <input type="email" name="email" placeholder="La tua email (opzionale)" />
+    </fieldset>
+
+    <button type="submit">Invia il Quiz</button>
+  </form>
+
+  <div id="quizResult" class="result-box"></div>
+</body>
+</html>
